@@ -19,6 +19,8 @@ class App extends React.Component{
       this.updateFish = this.updateFish.bind(this);
       //bind removeFish
       this.removeFish = this.removeFish.bind(this);
+      //bind removeOrder
+      this.removeOrder = this.removeOrder.bind(this)
 
       //getInitialState //i believe we will call this the store and that it will grow
       this.state = {
@@ -91,6 +93,13 @@ class App extends React.Component{
       this.setState({order});
    }
       // .map note: key={key} is for react index={key} is for you! to get key vals
+
+   removeOrder(key){
+      const order = {...this.state.order}
+      delete order[key];
+      this.setState({order});
+   }
+
    render(){
       return(
          <div className="catch-of-the-day">
@@ -100,7 +109,10 @@ class App extends React.Component{
                { Object.keys(this.state.fishes).map(key => <Fish key={key} index={key} details={this.state.fishes[key]} addToOrder={this.addToOrder}/>)}
             </ul>
             </div>
-            <Order fishes={this.state.fishes} order={this.state.order} params={this.props.params}/>
+            <Order fishes={this.state.fishes}
+                   order={this.state.order}
+                   params={this.props.params}
+                   removeOrder={this.removeOrder}/>
             <Inventory
                addFish={this.addFish}
                loadSamples={this.loadSamples}
