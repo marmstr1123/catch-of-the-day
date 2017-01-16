@@ -15,6 +15,8 @@ class App extends React.Component{
       this.loadSamples = this.loadSamples.bind(this);
       //bind addToOrder
       this.addToOrder = this.addToOrder.bind(this);
+      //bind updatedFish
+      this.updateFish = this.updateFish.bind(this);
 
       //getInitialState //i believe we will call this the store and that it will grow
       this.state = {
@@ -59,6 +61,12 @@ class App extends React.Component{
       this.setState({ fishes:fishes }) // ({ fishes }) -also Okay
 
    }
+   
+   updateFish(key, updatedFish) {
+      const fishes = {...this.state.fishes};
+      fishes[key] = updatedFish;
+      this.setState({fishes});
+   }
 
    loadSamples(){
       this.setState({
@@ -85,7 +93,11 @@ class App extends React.Component{
             </ul>
             </div>
             <Order fishes={this.state.fishes} order={this.state.order} params={this.props.params}/>
-            <Inventory addFish={this.addFish} loadSamples={this.loadSamples} fishes={this.state.fishes}/>
+            <Inventory
+               addFish={this.addFish}
+               loadSamples={this.loadSamples}
+               fishes={this.state.fishes}
+               updateFish={this.updateFish}/>
          </div>
       )
    }
