@@ -17,6 +17,8 @@ class App extends React.Component{
       this.addToOrder = this.addToOrder.bind(this);
       //bind updatedFish
       this.updateFish = this.updateFish.bind(this);
+      //bind removeFish
+      this.removeFish = this.removeFish.bind(this);
 
       //getInitialState //i believe we will call this the store and that it will grow
       this.state = {
@@ -52,7 +54,7 @@ class App extends React.Component{
    }
 
    addFish(fish){
-      //copy of state so you can updateState at end
+      //copy of state inorder to updateState at end
       const fishes = {...this.state.fishes};//originState
       //addNewFish
       const timeStamp = Date.now();
@@ -61,11 +63,17 @@ class App extends React.Component{
       this.setState({ fishes:fishes }) // ({ fishes }) -also Okay
 
    }
-   
+
    updateFish(key, updatedFish) {
       const fishes = {...this.state.fishes};
       fishes[key] = updatedFish;
       this.setState({fishes});
+   }
+
+   removeFish(key){
+      const fishes = {...this.state.fishes}
+      fishes[key] = null;
+      this.setState({fishes})
    }
 
    loadSamples(){
@@ -97,7 +105,8 @@ class App extends React.Component{
                addFish={this.addFish}
                loadSamples={this.loadSamples}
                fishes={this.state.fishes}
-               updateFish={this.updateFish}/>
+               updateFish={this.updateFish}
+               removeFish={this.removeFish}/>
          </div>
       )
    }
